@@ -25,6 +25,7 @@ export const {
   ],
   callbacks: {
     // usually not needed - this fixes a bug in next auth
+    // this sets the user.id in the session
     // may no longer be necessary
     async session({ session, user }: any) {
       if (session && user) {
