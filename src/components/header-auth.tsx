@@ -14,6 +14,12 @@ import * as actions from '@/actions';
 export default function HeaderAuth() {
   const session = useSession();
 
+  // don't render while loading
+  if (session.status === 'loading') {
+    return <></>;
+  }
+
+  // render user avatar and sign out button
   if (session.data?.user) {
     return (
       <Popover placement="left">
@@ -32,6 +38,7 @@ export default function HeaderAuth() {
     );
   }
 
+  // render sign in / up buttons
   return (
     <>
       <NavbarItem>
