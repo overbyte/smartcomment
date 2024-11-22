@@ -1,6 +1,7 @@
 'use server';
 
 import { z } from 'zod';
+import { auth } from '@/auth';
 
 const createTopicSchema = z.object({
   name: z
@@ -14,8 +15,11 @@ const createTopicSchema = z.object({
 
 interface CreateTopicFormState {
   errors: {
+    // field errors from schema
     name?: string[];
     description?: string[];
+    // extra field to describe errors with the form itself
+    _form?: string[];
   };
 }
 
@@ -31,6 +35,15 @@ export async function createTopic(
   if (!result.success) {
     return {
       errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  const session = await auth();
+  if (!session || !session.user) {
+    return {
+      errors: {
+        _form: ['You must be signed in to do this'],
+      },
     };
   }
 
