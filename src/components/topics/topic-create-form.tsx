@@ -32,12 +32,18 @@ export default function TopicCreateForm() {
               labelPlacement="outside"
               placeholder="name"
             />
+            {formState.errors.name && (
+              <div>{formState.errors.name?.join(' and ')}</div>
+            )}
             <Textarea
               name="description"
               label="Description"
               labelPlacement="outside"
               placeholder="Describe your Topic"
             />
+            {formState.errors.description && (
+              <div>{formState.errors.description?.join(',')}</div>
+            )}
             <Button type="submit">Submit</Button>
           </div>
         </form>
