@@ -31,6 +31,7 @@ export default function TopicCreateForm() {
       </PopoverTrigger>
 
       <PopoverContent>
+        {/* use onSubmit to ensure form data hangs around after submit */}
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4 p-4 w-80">
             <h3 className="text-lg">Create a Topic</h3>
@@ -39,19 +40,17 @@ export default function TopicCreateForm() {
               label="name"
               labelPlacement="outside"
               placeholder="name"
+              isInvalid={!!formState.errors.name}
+              errorMessage={formState.errors.name?.join(' and ')}
             />
-            {formState.errors.name && (
-              <div>{formState.errors.name?.join(' and ')}</div>
-            )}
             <Textarea
               name="description"
               label="Description"
               labelPlacement="outside"
               placeholder="Describe your Topic"
+              isInvalid={!!formState.errors.description}
+              errorMessage={formState.errors.description?.join(' and ')}
             />
-            {formState.errors.description && (
-              <div>{formState.errors.description?.join(',')}</div>
-            )}
             <Button type="submit">Submit</Button>
           </div>
         </form>
