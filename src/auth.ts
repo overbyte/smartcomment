@@ -23,15 +23,5 @@ export const {
       clientSecret: GITHUB_CLIENT_SECRET,
     }),
   ],
-  callbacks: {
-    // usually not needed - this fixes a bug in next auth
-    // this sets the user.id in the session
-    // may no longer be necessary
-    async session({ session, user }: any) {
-      if (session && user) {
-        session.user.id = user.id;
-      }
-      return session;
-    },
-  },
+  callbacks: {},
 });
