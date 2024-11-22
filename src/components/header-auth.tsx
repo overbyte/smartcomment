@@ -16,7 +16,7 @@ export default function HeaderAuth() {
 
   // don't render while loading
   if (session.status === 'loading') {
-    return <></>;
+    return <>loading...</>;
   }
 
   // render user avatar and sign out button
