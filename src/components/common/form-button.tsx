@@ -4,7 +4,7 @@ import { Button } from '@nextui-org/react';
 
 interface FormButtonProps {
   children: React.ReactNode;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 export default function FormButton({ children, isLoading }: FormButtonProps) {
   return (

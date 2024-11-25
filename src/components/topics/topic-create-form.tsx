@@ -21,6 +21,7 @@ export default function TopicCreateForm() {
   // https://github.com/facebook/react/issues/29034#issuecomment-2143595195
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const formData = new FormData(event.currentTarget);
     startTransition(() => action(formData));
   };
