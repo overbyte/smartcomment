@@ -1,5 +1,6 @@
 'use client';
 
+import { useActionState, startTransition } from 'react';
 import {
   Input,
   Button,
@@ -12,17 +13,16 @@ import { useActionState, useTransition } from 'react';
 import * as actions from '@/actions';
 
 export default function TopicCreateForm() {
-  const [formState, action] = useActionState(actions.createTopic, {
+  const [formState, action, isPending] = useActionState(actions.createTopic, {
     errors: {},
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isPending, startFormTransition] = useTransition();
-
+  // Using onSubmit instead of action on <form> will opt out of the form reset
+  // https://github.com/facebook/react/issues/29034#issuecomment-2143595195
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    startFormTransition(() => action(formData));
+    startTransition(() => action(formData));
   };
 
   return (
