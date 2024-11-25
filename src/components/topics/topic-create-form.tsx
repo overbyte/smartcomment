@@ -16,6 +16,7 @@ export default function TopicCreateForm() {
     errors: {},
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isPending, startFormTransition] = useTransition();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
