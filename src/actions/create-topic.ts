@@ -7,6 +7,7 @@ import { auth } from '@/auth';
 import { db } from '@/db';
 import paths from '@/paths';
 
+// create form schema for validation
 const createTopicSchema = z.object({
   name: z
     .string()
