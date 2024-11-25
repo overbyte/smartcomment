@@ -1,6 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { Topic } from '@prisma/client';
 import { auth } from '@/auth';
@@ -77,9 +78,7 @@ export async function createTopic(
   }
 
   // TODO update topics page
+  revalidatePath('/');
 
   redirect(paths.topic(topic.slug));
-
-  // return empty errors
-  return { errors: {} };
 }
