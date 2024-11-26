@@ -5,10 +5,10 @@ const paths = {
   topic(topicSlug: string) {
     return `/topics/${topicSlug}`;
   },
-  post(topicSlug: string) {
+  postCreate(topicSlug: string) {
     return `/topics/${topicSlug}/posts/create`;
   },
-  postCreate(topicSlug: string, postId: string) {
+  post(topicSlug: string, postId: string) {
     return `/topics/${topicSlug}/posts/${postId}`;
   },
 };
