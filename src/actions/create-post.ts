@@ -40,7 +40,8 @@ export async function createPost(
 
   // return form errors
   const session = await auth();
-  if (!session?.user) {
+  // NOTE we need to ensure the user id exists for the post.create further down
+  if (!session?.user?.id) {
     return {
       errors: {
         _form: ['You must be signed in to do this'],
