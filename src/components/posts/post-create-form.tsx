@@ -13,10 +13,16 @@ import * as actions from '@/actions';
 import FormButton from '@/components/common/form-button';
 import { div } from 'framer-motion/client';
 
-export default function PostCreateForm() {
-  const [formState, action, isPending] = useActionState(actions.createPost, {
-    errors: {},
-  });
+interface PostCreateFormProps {
+  slug: string;
+}
+
+export default function PostCreateForm({ slug }: PostCreateFormProps) {
+  // pass slug to createPost()
+  const [formState, action, isPending] = useActionState(
+    actions.createPost.bind(null, slug),
+    { errors: {} }
+  );
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();

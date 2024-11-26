@@ -22,6 +22,7 @@ interface CreatePostFormState {
 }
 
 export async function createPost(
+  slug: string,
   formState: CreatePostFormState,
   formData: FormData
 ): Promise<CreatePostFormState> {
@@ -30,12 +31,14 @@ export async function createPost(
     content: formData.get('content'),
   });
 
+  // return field errors
   if (!result.success) {
     return {
       errors: result.error.flatten().fieldErrors,
     };
   }
 
+  // return form errors
   const session = await auth();
   if (!session?.user) {
     return {
@@ -45,7 +48,49 @@ export async function createPost(
     };
   }
 
+  // get topicId from slug
+  const topic = await db.topic.findFirst({
+    where: { slug },
+  });
+
+  // ensure topic exists
+  if (!topic) {
+    return {
+      errors: {
+        _form: ['Unable to find topic'],
+      },
+    };
+  }
+
+  let post: Post;
+  try {
+    post = await db.post.create({
+      data: {
+        title: result.data.title,
+        content: result.data.content,
+        userId: session.user.id,
+        topicId: topic.id,
+      },
+    });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return {
+        errors: {
+          _form: [err.message],
+        },
+      };
+    }
+    return {
+      errors: {
+        _form: ['Creating the post went baaaaaaddd'],
+      },
+    };
+  }
+
   // TODO use time based revalidation on homepage
   // TODO update topics page
-  return { errors: {} };
+  revalidatePath(paths.topic(slug));
+
+  // redirect to post page
+  redirect(paths.post(slug, post.id));
 }

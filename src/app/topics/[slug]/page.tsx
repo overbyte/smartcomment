@@ -13,6 +13,7 @@ interface TopicPageProps {
 
 export default async function TopicPage({ params }: TopicPageProps) {
   const { slug } = await params;
+
   return (
     <div className="grid grid-cols-4 gap-4 p-4">
       <div className="col-span-3">
@@ -20,7 +21,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
       </div>
 
       <div>
-        <PostCreateForm />
+        <PostCreateForm slug={slug} />
       </div>
     </div>
   );
