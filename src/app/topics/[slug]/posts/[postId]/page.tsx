@@ -19,7 +19,8 @@ export default async function PostPage({ params }: PostPageProps) {
       <Link className="underline decoration-solid" href={paths.topic(slug)}>
         {'< '}Back to {slug}
       </Link>
-      {/* <Post /> */}
+
+      <PostShow postId={postId} />
       {/* <CommentCreateForm postId={postId} startOpen /> */}
       {/* <CommentList comments={comments} /> */}
     </div>
