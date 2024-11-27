@@ -2,13 +2,18 @@ import Image from 'next/image';
 import { Button } from '@nextui-org/react';
 import CommentCreateForm from '@/components/comments/comment-create-form';
 import type { CommentWithAuthor } from '@/db/queries/comments';
+import { fetchCommentsByPostId } from '@/db/queries/comments';
 
 interface CommentShowProps {
   commentId: string;
-  comments: CommentWithAuthor[];
+  postId: string;
 }
 
-export default function CommentShow({ commentId, comments }: CommentShowProps) {
+export default async function CommentShow({
+  commentId,
+  postId,
+}: CommentShowProps) {
+  const comments = await fetchCommentsByPostId(postId);
   const comment = comments.find((c) => c.id === commentId);
 
   if (!comment) {
@@ -17,9 +22,7 @@ export default function CommentShow({ commentId, comments }: CommentShowProps) {
 
   const children = comments.filter((c) => c.parentId === commentId);
   const renderedChildren = children.map((child) => {
-    return (
-      <CommentShow key={child.id} commentId={child.id} comments={comments} />
-    );
+    return <CommentShow key={child.id} commentId={child.id} postId={postId} />;
   });
 
   return (
@@ -36,7 +39,7 @@ export default function CommentShow({ commentId, comments }: CommentShowProps) {
           <p className="text-sm font-medium text-gray-500">
             {comment.user.name}
           </p>
-          <p className="text-gray-900">{comment.content}</p>
+          <p>{comment.content}</p>
 
           <CommentCreateForm postId={comment.postId} parentId={comment.id} />
         </div>
