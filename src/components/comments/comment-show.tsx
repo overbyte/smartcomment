@@ -37,14 +37,17 @@ export default async function CommentShow({
         />
         <div className="flex-1 space-y-3">
           <p className="text-sm font-medium text-gray-500">
-            {comment.user.name}
+            {comment.user.name}{' '}
+            <span className="text-[0.7rem]">
+              {comment.updatedAt.toLocaleString()}
+            </span>
           </p>
           <p>{comment.content}</p>
 
           <CommentCreateForm postId={comment.postId} parentId={comment.id} />
         </div>
       </div>
-      <div className="pl-4">{renderedChildren}</div>
+      <div>{renderedChildren}</div>
     </div>
   );
 }
