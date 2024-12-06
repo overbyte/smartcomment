@@ -1,10 +1,3 @@
-import {
-  Input,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from '@nextui-org/react';
-import * as actions from '@/actions';
 import { fetchPostsByTopicSlug } from '@/db/queries/posts';
 import PostCreateForm from '@/components/posts/post-create-form';
 import PostList from '@/components/posts/post-list';

@@ -11,7 +11,6 @@ import {
 } from '@nextui-org/react';
 import * as actions from '@/actions';
 import FormButton from '@/components/common/form-button';
-import { div } from 'framer-motion/client';
 
 interface PostCreateFormProps {
   slug: string;

@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Chip } from '@nextui-org/react';
 import { db } from '@/db';
 import paths from '@/paths';
-import { div } from 'framer-motion/client';
 
 export default async function TopicList() {
   const topics = await db.topic.findMany();
